@@ -1,0 +1,15 @@
+@import '../../scss/config';
+
+.sidebar-Link-container {
+  width: 100%;
+  text-align: center;
+}
+
+.sidebar-link {
+  @include sidebar-text;
+}
+
+.sidebar-link-active {
+  text-decoration: underline;
+  color: #0056b3;
+}

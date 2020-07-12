@@ -1,3 +1,5 @@
+@import '../../scss/config';
+
 .sidebar-container {
   justify-content: center;
   text-align: center;
@@ -7,4 +9,30 @@
   width: 100%;
   margin-top: 70px;
   margin-bottom: 20px;
+}
+
+.sidebar-paragraph-ig {
+  display: inline-block;
+  margin: 0;
+  color:rgb() &:hover {
+    color: #a8dadc;
+  }
+}
+
+.sidebar-anchor-link {
+  margin: 15px;
+  text-decoration: none;
+  color: #0069d9;
+  &:hover {
+    cursor: pointer;
+    color: #212529;
+  }
+}
+
+.sidebar-paragraph-description {
+  color: $text-color;
+}
+
+.sidebar-header-name {
+  @include sidebar-text;
 }

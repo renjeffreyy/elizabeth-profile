@@ -1,0 +1,8 @@
+.gallery-container {
+  display: flex;
+  flex-flow: column wrap;
+  margin-top: 70px;
+  align-content: flex-start;
+  max-height: 650px;
+  min-height: 650px;
+}

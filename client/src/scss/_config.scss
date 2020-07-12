@@ -1,0 +1,11 @@
+$text-color: rgba(0, 0, 0, 0.5);
+$small-devices: 600px;
+$medium-devices: 768px;
+
+@mixin sidebar-text {
+  display: block;
+  margin: 15px;
+  color: black;
+  font-weight: 500;
+  font-size: 25px;
+}
