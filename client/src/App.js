@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import store from './store.redux';
+import setAuthToken from './utils/set-auth-token.util';
+import { loadUser } from './actions/auth.action';
 
 import './scss/App.scss';
 
@@ -12,13 +15,13 @@ import Login from './components/login/login.component';
 import PrivateRoute from './components/private-route/private-route.component';
 import Dashboard from './components/dashboard/dashboard.component';
 
-import SetAuthToken from './utils/set-auth-token.util';
-
 function App() {
-  const [auth, setAuth] = useState(false);
   useEffect(() => {
-    SetAuthToken(localStorage.token);
-  });
+    setAuthToken(localStorage.token);
+    store.dispatch(loadUser());
+    console.log('use effect running');
+  }, []);
+
   return (
     <Router>
       <div className="container">
@@ -31,12 +34,7 @@ function App() {
               <Route exact path="/about" component={About} />
               <Route exact path="/contact" component={Contact} />
               <Route exact path="/login" component={Login} />
-              <PrivateRoute
-                auth={auth}
-                exact
-                path="/dashboard"
-                component={Dashboard}
-              />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
         </div>

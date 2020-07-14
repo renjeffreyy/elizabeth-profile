@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { sendMessage } from '../../actions/contact.action';
 
 import Banner from '../banner/banner.component';
 
 import './contact.style.scss';
 
-const Contact = () => {
+const Contact = ({ sendMessage }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,6 +24,12 @@ const Contact = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    sendMessage(formData);
+    setFormData({
+      name: '',
+      email: '',
+      message: '',
+    });
   };
 
   return (
@@ -69,4 +78,10 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+Contact.propTypes = {
+  sendMessage: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, { sendMessage })(Contact);

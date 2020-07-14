@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { loadArt } from '../../actions/gallery.action';
+import PropTypes from 'prop-types';
 
 import './gallery.style.scss';
 
@@ -7,12 +9,11 @@ import ArtModal from '../artModal/art-modal.component';
 import GalleryArt from '../gallery-art/gallery-art.component';
 import Pagination from '../pagination/pagination.component';
 
-const Gallery = () => {
+const Gallery = ({ loadArt, art }) => {
   useEffect(() => {
     getArt();
   }, []);
 
-  const [galleryData, setGalleryData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
@@ -21,8 +22,7 @@ const Gallery = () => {
 
   const getArt = async () => {
     setLoading(true);
-    const art = await axios.get('https://picsum.photos/v2/list');
-    setGalleryData([...galleryData, ...art.data]);
+    loadArt();
     setLoading(false);
   };
 
@@ -34,7 +34,7 @@ const Gallery = () => {
   //get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = galleryData.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = art.slice(indexOfFirstPost, indexOfLastPost);
 
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -59,7 +59,7 @@ const Gallery = () => {
       </div>
       <Pagination
         postsPerPage={postsPerPage}
-        totalPosts={galleryData.length}
+        totalPosts={art.length}
         paginate={paginate}
       />
       <ArtModal
@@ -71,4 +71,11 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+Gallery.propTypes = {
+  art: PropTypes.array.isRequired,
+  loadArt: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({ art: state.gallery.art });
+
+export default connect(mapStateToProps, { loadArt })(Gallery);

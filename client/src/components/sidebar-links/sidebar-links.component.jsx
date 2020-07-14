@@ -1,9 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logOut } from '../../actions/auth.action';
 
 import './sidebar-links.style.scss';
 
-const SidebarLinks = () => {
+const SidebarLinks = ({ isAuthenticated, logOut }) => {
   return (
     <div className="sidebar-link-container">
       <NavLink
@@ -30,8 +32,23 @@ const SidebarLinks = () => {
       >
         Contact
       </NavLink>
+      {isAuthenticated && (
+        <NavLink
+          activeClassName="sidebar-link-active"
+          className="sidebar-link"
+          to="/login"
+          exact
+          onClick={logOut}
+        >
+          Logout
+        </NavLink>
+      )}
     </div>
   );
 };
 
-export default SidebarLinks;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { logOut })(SidebarLinks);

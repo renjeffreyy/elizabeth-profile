@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import SetAuthToken from '../../utils/set-auth-token.util';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loginUser } from '../../actions/auth.action';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import './login.style.scss';
 
-const Login = () => {
+const Login = ({ isAuthenticated, loginUser }) => {
+  useEffect(() => {
+    SetAuthToken(localStorage.token);
+  }, []);
+
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
@@ -15,12 +24,20 @@ const Login = () => {
 
   const onChange = (event) => {
     setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
-    console.log(loginForm);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+    try {
+      loginUser(loginForm);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <div className="login-container">
@@ -55,4 +72,12 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStatetoProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+Login.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+export default connect(mapStatetoProps, { loginUser })(Login);
