@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { sendMessage } from '../../actions/contact.action';
+import { setAlert } from '../../actions/alert.action';
 
 import Banner from '../banner/banner.component';
 
@@ -24,6 +25,12 @@ const Contact = ({ sendMessage }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (name === '' || email === '' || message === '') {
+      return setAlert({
+        msg: 'Please fill out all input fields',
+        variant: 'danger',
+      });
+    }
     sendMessage(formData);
     setFormData({
       name: '',
@@ -38,7 +45,7 @@ const Contact = ({ sendMessage }) => {
       <div className="contact-form-container">
         <Form className="contact-form" onSubmit={onSubmit}>
           <Form.Group>
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Name*</Form.Label>
             <Form.Control
               type="text"
               name="name"
@@ -49,7 +56,7 @@ const Contact = ({ sendMessage }) => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>Email Address*</Form.Label>
             <Form.Control
               type="email"
               name="email"
@@ -60,7 +67,7 @@ const Contact = ({ sendMessage }) => {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Message</Form.Label>
+            <Form.Label>Message*</Form.Label>
             <Form.Control
               name="message"
               value={message}

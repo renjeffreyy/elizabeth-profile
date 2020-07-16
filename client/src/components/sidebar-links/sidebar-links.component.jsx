@@ -32,6 +32,14 @@ const SidebarLinks = ({ isAuthenticated, logOut }) => {
       >
         Contact
       </NavLink>
+      <NavLink
+        activeClassName="sidebar-link-active"
+        className="sidebar-link"
+        to="/cart"
+        exact
+      >
+        My Cart
+      </NavLink>
       {isAuthenticated && (
         <NavLink
           activeClassName="sidebar-link-active"

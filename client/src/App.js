@@ -6,6 +6,7 @@ import { loadUser } from './actions/auth.action';
 
 import './scss/App.scss';
 
+import AppAlert from './components/alert/alert.component';
 import Landing from './components/landing/landing-page.component';
 import Sidebar from './components/sidebar/sidebar.component';
 import About from './components/about/about.component';
@@ -14,6 +15,7 @@ import NavComponent from './components/nav/nav.component';
 import Login from './components/login/login.component';
 import PrivateRoute from './components/private-route/private-route.component';
 import Dashboard from './components/dashboard/dashboard.component';
+import Cart from './components/cart/cart.component';
 
 function App() {
   useEffect(() => {
@@ -26,6 +28,7 @@ function App() {
     <Router>
       <div className="container">
         <NavComponent />
+        <AppAlert />
         <div className="app-container-grid">
           <Sidebar className="sidebar-container" />
           <div className="switch-container">
@@ -34,6 +37,7 @@ function App() {
               <Route exact path="/about" component={About} />
               <Route exact path="/contact" component={Contact} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/cart" component={Cart} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
           </div>

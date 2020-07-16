@@ -23,10 +23,12 @@ router.post('/', (req, res) => {
     transporter.sendMail(mail, (err, data) => {
       if (err) {
         res.json({
+          variant: 'danger',
           msg: 'fail',
         });
       } else {
         res.json({
+          variant: 'success',
           msg: 'success',
         });
       }
