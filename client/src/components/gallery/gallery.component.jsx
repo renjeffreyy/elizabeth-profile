@@ -18,7 +18,12 @@ const Gallery = ({ loadArt, art }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const [modalShow, setModalShow] = useState(false);
-  const [modalArt, setModalArt] = useState('');
+  const [modalData, setmodalData] = useState({
+    url: '',
+    title: '',
+    price: '',
+    description: '',
+  });
 
   const getArt = async () => {
     setLoading(true);
@@ -26,8 +31,14 @@ const Gallery = ({ loadArt, art }) => {
     setLoading(false);
   };
 
-  const artImgClick = (url) => {
-    setModalArt(url);
+  const artImgClick = (artData) => {
+    const { url, artName, price, artDescription } = artData;
+    setmodalData({
+      url: url,
+      title: artName,
+      price: price,
+      description: artDescription,
+    });
     setModalShow(true);
   };
 
@@ -47,12 +58,24 @@ const Gallery = ({ loadArt, art }) => {
   return (
     <div>
       <div className="gallery-container">
-        {currentPosts.map((art) => {
+        {/* for texting multiple stock images */}
+        {/* {currentPosts.map((art) => {
           return (
             <GalleryArt
               onClick={() => artImgClick(art.download_url)}
               key={art.id}
               url={art.download_url}
+            />
+          );
+        })} */}
+
+        {/* for testing art data from mongodb */}
+        {currentPosts.map((art) => {
+          return (
+            <GalleryArt
+              onClick={() => artImgClick(art)}
+              key={art._id}
+              url={art.url}
             />
           );
         })}
@@ -63,9 +86,12 @@ const Gallery = ({ loadArt, art }) => {
         paginate={paginate}
       />
       <ArtModal
-        url={modalArt}
+        url={modalData.url}
         show={modalShow}
         onHide={() => setModalShow(false)}
+        title={modalData.title}
+        description={modalData.description}
+        price={modalData.price}
       />
     </div>
   );

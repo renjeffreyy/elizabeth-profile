@@ -7,6 +7,15 @@ const ArtSchema = new mongoose.Schema({
   },
   artDescription: {
     type: String,
+    required: true,
+  },
+  url: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
   },
   date: {
     type: Date,

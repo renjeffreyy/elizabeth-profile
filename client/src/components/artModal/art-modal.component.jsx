@@ -15,17 +15,22 @@ const ArtModal = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Replace with artwork name
+            {props.title}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="modal-body">
           <img className="modal-img" src={props.url} alt="Elizabeth's art" />
         </Modal.Body>
+        <Modal.Body className="modal-body-description">
+          <p>{props.description}</p>
+        </Modal.Body>
         <Modal.Footer>
+          <p className="modal-footer-price">Price: ${props.price}</p>
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     </div>
   );
 };
+
 export default ArtModal;

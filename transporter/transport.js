@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-// const xoauth2 = require('xoauth2');
+
 require('dotenv').config();
 
 const transport = {
@@ -9,12 +9,6 @@ const transport = {
   auth: {
     user: process.env.gmail_email,
     pass: process.env.gmail_secret,
-    // xoauth2:xoauth2.createXOAuth2Generator({
-    //     user:'',
-    //     clientId:'',
-    //     clientSecret:'',
-    //     refreshToken:'',
-    // })
   },
 };
 const transporter = nodemailer.createTransport(transport);

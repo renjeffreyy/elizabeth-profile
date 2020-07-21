@@ -7,3 +7,14 @@
   display: flex;
   justify-content: center;
 }
+
+.modal-body-description {
+  display: block;
+}
+
+.modal-footer-price {
+  position: absolute;
+  left: 0;
+  padding: 16px;
+  margin: 0;
+}
