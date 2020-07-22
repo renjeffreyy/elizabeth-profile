@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 require('dotenv').config();
 const auth = require('../../middleware/auth.middleware');
-
+const checkObjectId = require('../../middleware/check-object-id');
 const Art = require('../../models/art.model');
 
 //@route    get api/art
@@ -67,5 +67,20 @@ router.post(
     }
   }
 );
+
+//@route    delete api/art/:id
+//@desc     delete art
+//access    private
+router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    const art = await Art.findById(req.params.id);
+
+    await art.remove();
+    res.status(200).send({ msg: 'Removed Successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ msg: 'Server Error' });
+  }
+});
 
 module.exports = router;

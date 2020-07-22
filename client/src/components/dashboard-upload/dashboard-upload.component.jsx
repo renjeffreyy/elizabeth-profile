@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import { uploadArt } from '../../actions/gallery.action';
 
+import './dashboard-upload.style.scss';
+
 const DashboardUpload = ({ className, uploadArt }) => {
   const [uploadForm, setUploadForm] = useState({
     name: '',
@@ -26,7 +28,7 @@ const DashboardUpload = ({ className, uploadArt }) => {
   };
   return (
     <Form onSubmit={onSubmit} className={className}>
-      <h1>Upload New Art</h1>
+      <h1 className="dashboardUpload-h1-title">Upload New Art</h1>
       <Form.Group>
         <Form.Label>Name</Form.Label>
         <Form.Control

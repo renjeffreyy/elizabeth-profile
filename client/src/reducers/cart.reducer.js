@@ -11,7 +11,19 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case REMOVE_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter((cartItem) => cartItem._id !== payload),
+        total: '',
+        tax: '',
+      };
     case ADD_TO_CART:
+      return {
+        ...state,
+        cart: [state.cart, ...payload],
+        total: '',
+        tax: '',
+      };
     default:
       return state;
   }

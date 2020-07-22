@@ -1,4 +1,4 @@
-import { ART_LOADED } from './types.action';
+import { ART_LOADED, DELETE_ART } from './types.action';
 //for now using axios to make requests if making requests to api
 //change to api in utils
 import { setAlert } from './alert.action';
@@ -30,5 +30,20 @@ export const uploadArt = (artData) => async (dispatch) => {
         console.log(err);
       });
     }
+  }
+};
+
+export const deleteArt = (id) => async (dispatch) => {
+  try {
+    await api.delete(`/art/${id}`);
+
+    dispatch({
+      type: DELETE_ART,
+      payload: id,
+    });
+
+    dispatch(setAlert({ msg: 'Removed Successfully', variant: 'success' }));
+  } catch (error) {
+    console.error(error);
   }
 };

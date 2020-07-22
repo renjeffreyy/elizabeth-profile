@@ -1,7 +1,16 @@
 @import '~bootstrap/scss/bootstrap';
-
+@import './config';
 body {
   margin: 0;
+  background-color: $background-color;
+}
+
+input {
+  background-color: $background-color !important;
+}
+
+textarea {
+  background-color: $background-color !important;
 }
 
 a {

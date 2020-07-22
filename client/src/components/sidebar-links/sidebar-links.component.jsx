@@ -41,15 +41,26 @@ const SidebarLinks = ({ isAuthenticated, logOut }) => {
         My Cart
       </NavLink>
       {isAuthenticated && (
-        <NavLink
-          activeClassName="sidebar-link-active"
-          className="sidebar-link"
-          to="/login"
-          exact
-          onClick={logOut}
-        >
-          Logout
-        </NavLink>
+        <>
+          <NavLink
+            activeClassName="sidebar-link-active"
+            className="sidebar-link"
+            to="/Dashboard"
+            exact
+          >
+            Dashboard
+          </NavLink>
+
+          <NavLink
+            activeClassName="sidebar-link-active"
+            className="sidebar-link"
+            to="/login"
+            exact
+            onClick={logOut}
+          >
+            Logout
+          </NavLink>
+        </>
       )}
     </div>
   );

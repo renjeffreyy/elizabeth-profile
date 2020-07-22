@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 import './art-modal.style.scss';
+import { addToCart } from '../../actions/cart.action';
 
 const ArtModal = (props) => {
   return (
@@ -26,7 +27,19 @@ const ArtModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <p className="modal-footer-price">Price: ${props.price}</p>
-          <Button onClick={props.onHide}>Close</Button>
+
+          <Button
+            onClick={() =>
+              addToCart({
+                url: props.url,
+                quantity: 1,
+                title: props.title,
+                price: props.price,
+              })
+            }
+          >
+            Add to cart
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
