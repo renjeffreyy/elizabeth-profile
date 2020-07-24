@@ -76,14 +76,7 @@ const Gallery = ({
         totalPosts={art.length}
         paginate={paginate}
       />
-      <ArtModal
-        url={url}
-        show={displayModal}
-        onHide={() => hideModal()}
-        title={title}
-        description={description}
-        price={price}
-      />
+      <ArtModal />
     </div>
   );
 };

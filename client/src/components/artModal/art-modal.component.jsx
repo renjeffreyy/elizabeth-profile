@@ -1,40 +1,48 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-
+import { connect } from 'react-redux';
 import './art-modal.style.scss';
 import { addToCart } from '../../actions/cart.action';
+import { hideModal } from '../../actions/modal.action';
 
-const ArtModal = (props) => {
+const ArtModal = ({
+  hideModal,
+  displayModal,
+  url,
+  title,
+  price,
+  description,
+  addToCart,
+}) => {
   return (
     <div>
       <Modal
-        {...props}
+        onHide={() => hideModal()}
+        show={displayModal}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {props.title}
-          </Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modal-body">
-          <img className="modal-img" src={props.url} alt="Elizabeth's art" />
+          <img className="modal-img" src={url} alt="Elizabeth's art" />
         </Modal.Body>
         <Modal.Body className="modal-body-description">
-          <p>{props.description}</p>
+          <p>{description}</p>
         </Modal.Body>
         <Modal.Footer>
-          <p className="modal-footer-price">Price: ${props.price}</p>
+          <p className="modal-footer-price">Price: ${price}</p>
 
           <Button
             onClick={() =>
               addToCart({
-                url: props.url,
+                url: url,
+                title: title,
+                price: price,
                 quantity: 1,
-                title: props.title,
-                price: props.price,
               })
             }
           >
@@ -46,4 +54,12 @@ const ArtModal = (props) => {
   );
 };
 
-export default ArtModal;
+const mapStateToProps = (state) => ({
+  displayModal: state.modal.displayModal,
+  title: state.modal.modalData.title,
+  url: state.modal.modalData.url,
+  price: state.modal.modalData.price,
+  description: state.modal.modalData.description,
+});
+
+export default connect(mapStateToProps, { hideModal, addToCart })(ArtModal);

@@ -3,6 +3,7 @@ import { setAlert } from './alert.action';
 
 export const addToCart = (art) => (dispatch) => {
   try {
+    console.log(art);
     dispatch({ type: ADD_TO_CART, payload: art });
   } catch (error) {
     console.error(error);

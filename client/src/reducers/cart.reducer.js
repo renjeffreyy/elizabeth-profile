@@ -18,9 +18,25 @@ export default function (state = initialState, action) {
         tax: '',
       };
     case ADD_TO_CART:
+      const existingCartItem = state.cart.find(
+        (cartItem) => cartItem.url === payload.url
+      );
+      if (existingCartItem) {
+        const newArray = state.cart.map((cartItem) => {
+          return cartItem.url === payload.url
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem;
+        });
+        return {
+          ...state,
+          cart: [...newArray],
+          total: '',
+          tax: '',
+        };
+      }
       return {
         ...state,
-        cart: [state.cart, ...payload],
+        cart: [...state.cart, payload],
         total: '',
         tax: '',
       };

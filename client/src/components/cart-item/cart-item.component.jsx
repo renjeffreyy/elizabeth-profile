@@ -8,7 +8,10 @@ const CartItem = ({ url, title, price, quantity, total }) => {
     <Container>
       <Row>
         <Col md={3}>
-          <img src={url} alt="cart-item" />
+          <div
+            className="cartItem-img"
+            style={{ backgroundImage: `url(${url})` }}
+          ></div>
         </Col>
         <Col md={9}>
           <h3>Art:{title}</h3>
