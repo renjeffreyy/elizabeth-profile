@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import store from './store.redux';
+import { store } from './store.redux';
 import setAuthToken from './utils/set-auth-token.util';
 import { loadUser } from './actions/auth.action';
 
