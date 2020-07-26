@@ -11,14 +11,7 @@ import ArtModal from '../artModal/art-modal.component';
 import GalleryArt from '../gallery-art/gallery-art.component';
 import Pagination from '../pagination/pagination.component';
 
-const Gallery = ({
-  loadArt,
-  art,
-  showModal,
-  hideModal,
-  displayModal,
-  modalData,
-}) => {
+const Gallery = ({ loadArt, art, showModal }) => {
   useEffect(() => {
     getArt();
   }, []);
@@ -45,7 +38,6 @@ const Gallery = ({
   if (loading) {
     return <h2>Loading...</h2>;
   }
-  const { url, title, description, price } = modalData;
   return (
     <div>
       <div className="gallery-container">

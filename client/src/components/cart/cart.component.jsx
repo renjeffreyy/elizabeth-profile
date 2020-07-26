@@ -4,7 +4,7 @@ import CartItem from '../cart-item/cart-item.component';
 import StripeCheckout from 'react-stripe-checkout';
 import Button from 'react-bootstrap/Button';
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, total }) => {
   return (
     <div>
       <h1>Your Cart</h1>
@@ -21,6 +21,10 @@ const Cart = ({ cart }) => {
               />
             );
           })}
+
+          <div>
+            <p>{total}</p>
+          </div>
 
           <StripeCheckout
             stripeKey=""
@@ -42,6 +46,7 @@ const Cart = ({ cart }) => {
 
 const mapStateToProps = (state) => ({
   cart: state.cart.cart,
+  total: state.cart.total,
 });
 
 export default connect(mapStateToProps)(Cart);

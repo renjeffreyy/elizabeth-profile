@@ -5,7 +5,7 @@ import './cart-item.style.scss';
 
 const CartItem = ({ url, title, price, quantity, total }) => {
   return (
-    <Container>
+    <Container className="cartItem-container">
       <Row>
         <Col md={3}>
           <div
@@ -13,16 +13,20 @@ const CartItem = ({ url, title, price, quantity, total }) => {
             style={{ backgroundImage: `url(${url})` }}
           ></div>
         </Col>
-        <Col md={9}>
-          <h3>Art:{title}</h3>
-          <p>price: ${price}</p>
-          <span className="CartItem-quantity-span">
-            <p>quantity:</p>
-            <input type="number" value={quantity} />
-          </span>
+        <Col md={9} className="cartItem-column-container">
+          <Row>
+            <p>Art:{title}</p>
+            <p>price: ${price}</p>
+            <span className="CartItem-quantity-span">
+              <p>quantity:</p>
+              <input type="number" value={quantity} />
+            </span>
 
-          <p>Total: {total}</p>
-          <Button>Remove</Button>
+            <p>Total: {total}</p>
+          </Row>
+          <Row>
+            <Button>Remove</Button>
+          </Row>
         </Col>
       </Row>
     </Container>
