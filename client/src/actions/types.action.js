@@ -10,3 +10,4 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const DELETE_ART = 'DELETE_ART';
+export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';

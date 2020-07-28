@@ -1,4 +1,8 @@
-import { REMOVE_FROM_CART, ADD_TO_CART } from '../actions/types.action';
+import {
+  REMOVE_FROM_CART,
+  ADD_TO_CART,
+  REMOVE_ONE_FROM_CART,
+} from '../actions/types.action';
 
 const initialState = {
   cart: [],
@@ -28,6 +32,17 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case REMOVE_ONE_FROM_CART:
+      const arrayWithRemovedQuantitites = state.cart.map((cartItem) => {
+        return cartItem.url === payload.url
+          ? { ...cartItem, quantity: cartItem.quantity - 1 }
+          : cartItem;
+      });
+      return {
+        ...state,
+        cart: [...arrayWithRemovedQuantitites],
+        total: calcTotalPrice(arrayWithRemovedQuantitites),
+      };
     case REMOVE_FROM_CART:
       const newCartAfterRemoval = state.cart.filter(
         (cartItem) => cartItem.url !== payload

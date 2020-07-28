@@ -5,7 +5,11 @@ import { logOut } from '../../actions/auth.action';
 
 import './sidebar-links.style.scss';
 
-const SidebarLinks = ({ isAuthenticated, logOut }) => {
+const SidebarLinks = ({ isAuthenticated, logOut, cart }) => {
+  const totalCartQuantity = cart.reduce(
+    (accum, current) => accum + current.quantity,
+    0
+  );
   return (
     <div className="sidebar-link-container">
       <NavLink
@@ -38,7 +42,7 @@ const SidebarLinks = ({ isAuthenticated, logOut }) => {
         to="/cart"
         exact
       >
-        My Cart
+        My Cart ({totalCartQuantity})
       </NavLink>
       {isAuthenticated && (
         <>
@@ -68,6 +72,7 @@ const SidebarLinks = ({ isAuthenticated, logOut }) => {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  cart: state.cart.cart,
 });
 
 export default connect(mapStateToProps, { logOut })(SidebarLinks);

@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import CartItem from '../cart-item/cart-item.component';
 import StripeCheckout from 'react-stripe-checkout';
 import Button from 'react-bootstrap/Button';
+import ArtModal from '../artModal/art-modal.component';
 
 const Cart = ({ cart, total }) => {
   return (
     <div>
+      <ArtModal />
       <h1>Your Cart</h1>
       {cart.length > 0 ? (
         <>
