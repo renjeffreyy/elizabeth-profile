@@ -6,7 +6,17 @@ const initialState = {
   tax: '',
 };
 
-const calcTotalPrice = (array, newItem) => {
+const calcTotalPrice = (array, newItem = null) => {
+  //if no second argument is passed into calculating new price,
+  //will recalculate the price with current cart items
+
+  if (newItem === null) {
+    const totalWithItemRemoved = [...array];
+    return totalWithItemRemoved.reduce(
+      (accum, current) => accum + current.quantity * current.price,
+      0
+    );
+  }
   const totalWithNewItem = [...array, newItem];
   return totalWithNewItem.reduce(
     (accum, current) => accum + current.quantity * current.price,
@@ -19,10 +29,13 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case REMOVE_FROM_CART:
+      const newCartAfterRemoval = state.cart.filter(
+        (cartItem) => cartItem.url !== payload
+      );
       return {
         ...state,
-        cart: state.cart.filter((cartItem) => cartItem._id !== payload),
-        total: '',
+        cart: newCartAfterRemoval,
+        total: calcTotalPrice(newCartAfterRemoval),
         tax: '',
       };
     case ADD_TO_CART:

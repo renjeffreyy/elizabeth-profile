@@ -2,8 +2,10 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import './cart-item.style.scss';
+import { connect } from 'react-redux';
+import { removeFromCart } from '../../actions/cart.action';
 
-const CartItem = ({ url, title, price, quantity, total }) => {
+const CartItem = ({ url, title, price, quantity, total, removeFromCart }) => {
   return (
     <Container className="cartItem-container">
       <Row>
@@ -22,10 +24,10 @@ const CartItem = ({ url, title, price, quantity, total }) => {
               <input type="number" value={quantity} />
             </span>
 
-            <p>Total: {total}</p>
+            <p>Total: ${total}</p>
           </Row>
           <Row>
-            <Button>Remove</Button>
+            <Button onClick={() => removeFromCart(url)}>Remove</Button>
           </Row>
         </Col>
       </Row>
@@ -33,4 +35,4 @@ const CartItem = ({ url, title, price, quantity, total }) => {
   );
 };
 
-export default CartItem;
+export default connect(null, { removeFromCart })(CartItem);

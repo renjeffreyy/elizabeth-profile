@@ -11,4 +11,11 @@ export const addToCart = (art) => (dispatch) => {
   }
 };
 
-export const removeFromCart = () => (dispatch) => {};
+export const removeFromCart = (url) => (dispatch) => {
+  try {
+    dispatch({ type: REMOVE_FROM_CART, payload: url });
+  } catch (error) {
+    dispatch(setAlert({ msg: 'something went wrong', variant: 'danger' }));
+    console.error(error);
+  }
+};

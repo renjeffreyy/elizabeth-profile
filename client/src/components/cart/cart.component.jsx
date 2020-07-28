@@ -18,12 +18,13 @@ const Cart = ({ cart, total }) => {
                 url={cartData.url}
                 price={cartData.price}
                 quantity={cartData.quantity}
+                total={cartData.quantity * cartData.price}
               />
             );
           })}
 
           <div>
-            <p>{total}</p>
+            <p>Cart Total: ${total}</p>
           </div>
 
           <StripeCheckout
