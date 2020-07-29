@@ -14,6 +14,7 @@ const ArtModal = ({
   price,
   description,
   addToCart,
+  id,
 }) => {
   return (
     <div>
@@ -39,6 +40,7 @@ const ArtModal = ({
           <Button
             onClick={() =>
               addToCart({
+                id: id,
                 url: url,
                 title: title,
                 price: price,
@@ -60,6 +62,7 @@ const mapStateToProps = (state) => ({
   url: state.modal.modalData.url,
   price: state.modal.modalData.price,
   description: state.modal.modalData.description,
+  id: state.modal.modalData.id,
 });
 
 export default connect(mapStateToProps, { hideModal, addToCart })(ArtModal);

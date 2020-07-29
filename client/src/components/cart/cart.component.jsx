@@ -4,8 +4,13 @@ import CartItem from '../cart-item/cart-item.component';
 import StripeCheckout from 'react-stripe-checkout';
 import Button from 'react-bootstrap/Button';
 import ArtModal from '../artModal/art-modal.component';
+import { makePayment } from '../../actions/cart.action';
 
-const Cart = ({ cart, total }) => {
+const Cart = ({ cart, total, makePayment }) => {
+  const processPayment = (token) => {
+    makePayment({ token, cart, total });
+  };
+
   return (
     <div>
       <ArtModal />
@@ -30,12 +35,14 @@ const Cart = ({ cart, total }) => {
           </div>
 
           <StripeCheckout
-            stripeKey=""
-            token=""
+            stripeKey={process.env.REACT_APP_PUBLISHABLE_KEY}
+            token={processPayment}
             shippingAddress
+            billingAddress
             name="Checkout"
             description="Thank you for supporting my dream!"
             currency="USD"
+            amount={total * 100}
           >
             <Button>Checkout</Button>
           </StripeCheckout>
@@ -52,4 +59,4 @@ const mapStateToProps = (state) => ({
   total: state.cart.total,
 });
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, { makePayment })(Cart);

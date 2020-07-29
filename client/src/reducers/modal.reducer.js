@@ -3,6 +3,7 @@ import { SHOW_MODAL, HIDE_MODAL } from '../actions/types.action';
 const initialState = {
   displayModal: false,
   modalData: {
+    id: '',
     url: '',
     title: '',
     price: '',
@@ -19,6 +20,7 @@ export default function (state = initialState, action) {
         ...state,
         displayModal: true,
         modalData: {
+          id: payload._id,
           url: payload.url,
           title: payload.artName,
           price: payload.price,
@@ -29,6 +31,7 @@ export default function (state = initialState, action) {
       return {
         displayModal: false,
         modalData: {
+          id: '',
           url: '',
           title: '',
           price: '',
